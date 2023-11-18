@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 /**
  * The PersonalAccount class represents a simple personal bank account with basic
  * functionalities such as deposit, withdrawal, and transaction history.
@@ -47,7 +46,7 @@ public class PersonalAccount {
         if (amount > 0) {
             transactions.add(new Amount(amount, "Deposit"));
             balance += amount;
-            System.out.println("Deposited" + amount);
+            System.out.println("Deposited: " + amount);
         } else {
             System.out.println("Invalid deposit amount. Amount must be greater than zero.");
         }
@@ -58,13 +57,16 @@ public class PersonalAccount {
      *
      * @param amount The amount to be withdrawn. Must be greater than zero and not exceed the account balance.
      */
-    public void withdraw(double amount) {
-        if (amount > 0 && amount <= balance) {
-            transactions.add(new Amount(amount, "Withdrawal"));
-            balance -= amount;
-            System.out.println("Withdrawn" + amount);
-        } else {
-            System.out.println("Invalid withdrawal amount or insufficient funds.");
+    public void withdraw(double amount) throws InsufficientBalanceException{
+        if(amount > balance)
+        {
+            throw new InsufficientBalanceException("There is not enough money on your balance. Your balance: " + balance);
+        }else {
+            if (amount > 0 && amount < balance) {
+                transactions.add(new Amount(amount, "Withdrawal"));
+                balance -= amount;
+                System.out.println("Withdrawn: " + amount);
+            }
         }
     }
 

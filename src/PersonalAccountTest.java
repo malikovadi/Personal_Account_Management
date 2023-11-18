@@ -18,14 +18,14 @@ public class PersonalAccountTest {
     }
 
     @Test
-    public void testWithdraw() {
+    public void testWithdraw() throws InsufficientBalanceException{
         account.deposit(200.0);
         account.withdraw(50.0);
         assertEquals(150.0, account.getBalance(), 0.001);
     }
 
     @Test
-    public void testWithdrawInsufficientFunds() {
+    public void testWithdrawInsufficientFunds() throws InsufficientBalanceException{
         account.deposit(50.0);
         account.withdraw(100.0);
         assertEquals(50.0, account.getBalance(), 0.001);
